@@ -1936,7 +1936,7 @@ GameObject:
   - component: {fileID: 1427322294}
   - component: {fileID: 1427322293}
   m_Layer: 5
-  m_Name: RestartBuytton
+  m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
