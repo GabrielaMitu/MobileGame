@@ -61,6 +61,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
             Debug.Log("Unity Ads Rewarded Ad Completed");
             // Grant a reward.
             Debug.Log("You've gained 1 more try!");
+            _showAdButton.interactable = true;
         }
     }
  

@@ -2,8 +2,8 @@
     "m_SelectedDeviceId": "RQ8NA0DK6RN",
     "m_SelectedPackage": {
         "deviceId": "RQ8NA0DK6RN",
-        "name": "com.DefaultCompany.com.unity.template.mobile2D",
-        "processId": 10844,
+        "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+        "processId": 14903,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -42,6 +42,96 @@
             "deviceId": "RQ8NA0DK6RN",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 10844,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 29313,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 30882,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 3985,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 5076,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 14939,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 16247,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 28523,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 29487,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 30983,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 4737,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 9680,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 15997,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 17050,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 13712,
+            "exited": false
+        },
+        {
+            "deviceId": "RQ8NA0DK6RN",
+            "name": "com.JogosMobileCompany.com.unity.template.MobileGame",
+            "processId": 14903,
             "exited": false
         }
     ],
