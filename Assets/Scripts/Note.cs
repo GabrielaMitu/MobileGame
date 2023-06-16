@@ -6,6 +6,13 @@ public class Note : MonoBehaviour
 {
     Animator animator;
 
+    // Items to be used
+    public GameObject shield;
+    public GameObject freeze;
+
+    public bool usingFreeze = false;
+    public bool usingShield = false;
+
     private bool visible;
     public bool Visible
     {
@@ -63,5 +70,31 @@ public class Note : MonoBehaviour
             StartCoroutine(GameController.Instance.EndGame());
             animator.Play("Missed");
         }
+    }
+
+
+    public void OnFreezeButtonClick()
+    {
+        if (usingFreeze){
+            usingFreeze = false;
+            freeze.SetActive(false);
+        }
+        else{
+            usingFreeze = true;
+            freeze.SetActive(true);
+        }
+    }
+
+    public void OnShieldButtonClick()
+    {
+        if (usingShield){
+            usingShield = false;
+            shield.SetActive(false);
+        }
+        else{
+            usingShield = true;
+            shield.SetActive(true);
+        }
+        usingShield = true;
     }
 }
