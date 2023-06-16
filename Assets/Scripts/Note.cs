@@ -6,6 +6,9 @@ public class Note : MonoBehaviour
 {
     Animator animator;
 
+    // Count the number of notes
+    public int count = 0;
+
     // Items to be used
     public GameObject shield;
     public GameObject freeze;
@@ -42,9 +45,15 @@ public class Note : MonoBehaviour
 
     private void Update()
     {
+
         if (GameController.Instance.GameStarted.Value && !GameController.Instance.GameOver.Value)
         {
             transform.Translate(Vector2.down * GameController.Instance.noteSpeed * Time.deltaTime);
+        }
+
+        if (count == 7){
+            GameController.Instance.noteSpeed *= 2f;
+            count = 0;
         }
     }
 
@@ -65,15 +74,13 @@ public class Note : MonoBehaviour
             }
             else
             {
-                Debug.Log("\nDDDDDDDDDDDDDDDDDD");
-                Debug.Log("Using Freeze: " + usingFreeze);
                 if(freeze.activeSelf){
-                    Debug.Log("\nBBBBBBBBBBBBBBBBBBBBB");
-                    Debug.Log("Using Freeze");
                     usingFreeze = false;
                     freeze.SetActive(false);
 
-                    // slow down the note speed for 5 seconds
+                    // slow down the note speed for 7 notes
+                    count++;
+
                     GameController.Instance.noteSpeed /= 2f;
                     Played = true;
                     GameController.Instance.LastPlayedNoteId = Id;
@@ -95,13 +102,13 @@ public class Note : MonoBehaviour
         if (Visible && !Played)
         {
             // get the value of usingFreeze
-            Debug.Log("\naaaaaaaaaaaaaaaaa");
             if(freeze.activeSelf){
-                Debug.Log("Using Freeze");
                 usingFreeze = false;
                 freeze.SetActive(false);
 
                 // slow down the note speed for 5 seconds
+                count++;
+
                 GameController.Instance.noteSpeed /= 2f;
                 Played = true;
                 GameController.Instance.LastPlayedNoteId = Id;
