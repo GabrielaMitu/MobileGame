@@ -57,8 +57,20 @@ public class Note : MonoBehaviour
             }
             else
             {
-                StartCoroutine(GameController.Instance.EndGame());
-                animator.Play("Missed");
+                if(usingFreeze){
+                    Debug.Log("Using Freeze");
+                    usingFreeze = false;
+                    freeze.SetActive(false);
+
+                    // slow down the note speed for 5 seconds
+                    GameController.Instance.noteSpeed = 1f;
+                    animator.Play("Played");
+                }
+                else{
+                    Debug.Log("Game Over");
+                    StartCoroutine(GameController.Instance.EndGame());
+                    animator.Play("Missed");
+                }
             }
         }
     }
@@ -67,8 +79,20 @@ public class Note : MonoBehaviour
     {
         if (Visible && !Played)
         {
-            StartCoroutine(GameController.Instance.EndGame());
-            animator.Play("Missed");
+            if(usingFreeze){
+                Debug.Log("Using Freeze");
+                usingFreeze = false;
+                freeze.SetActive(false);
+
+                // slow down the note speed for 5 seconds
+                GameController.Instance.noteSpeed = 1f;
+            }
+            else{
+                Debug.Log("Game Over");
+                StartCoroutine(GameController.Instance.EndGame());
+                animator.Play("Missed");
+            }
+
         }
     }
 

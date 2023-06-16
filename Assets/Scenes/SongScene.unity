@@ -1682,6 +1682,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826741223}
   m_CullTransparentMesh: 1
+--- !u!114 &849173480 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5270619753908538094, guid: cc5784239cd157a409348feda7deac8b, type: 3}
+  m_PrefabInstance: {fileID: 1242950457}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe9be8bd57687341aceea234623d99a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &866187780
 GameObject:
   m_ObjectHideFlags: 0
@@ -2957,6 +2968,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5270619753908538094, guid: cc5784239cd157a409348feda7deac8b, type: 3}
+      propertyPath: freeze
+      value: 
+      objectReference: {fileID: 408543448}
+    - target: {fileID: 5270619753908538094, guid: cc5784239cd157a409348feda7deac8b, type: 3}
+      propertyPath: shield
+      value: 
+      objectReference: {fileID: 871102737}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc5784239cd157a409348feda7deac8b, type: 3}
 --- !u!1 &1327871622
@@ -3228,8 +3247,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2011994418}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 849173480}
+        m_TargetAssemblyTypeName: Note, Assembly-CSharp
         m_MethodName: OnShieldButtonClick
         m_Mode: 1
         m_Arguments:
@@ -3362,8 +3381,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2011994418}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 849173480}
+        m_TargetAssemblyTypeName: Note, Assembly-CSharp
         m_MethodName: OnFreezeButtonClick
         m_Mode: 1
         m_Arguments:
@@ -3596,11 +3615,7 @@ MonoBehaviour:
   mozart2: {fileID: 8300000, guid: 6481247038ee931328ffcaa89ff5dbfe, type: 3}
   classica1: {fileID: 8300000, guid: b8da2c4e322dd4a79aaca529cc848262, type: 3}
   demo: {fileID: 8300000, guid: 2e627355d5c1cfd4fb07a494cf97deeb, type: 3}
-  filePath:
-  shield: {fileID: 871102737}
-  freeze: {fileID: 408543448}
-  usingFreeze: 0
-  usingShield: 0
+  filePath: 
 --- !u!1 &2037090371
 GameObject:
   m_ObjectHideFlags: 0
