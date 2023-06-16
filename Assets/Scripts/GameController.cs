@@ -4,6 +4,8 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
@@ -34,6 +36,16 @@ public class GameController : MonoBehaviour
     // detect when pressed start
     public bool startButtonPressed  = false;
 
+    public string argument;
+    public int speed;
+    public AudioClip mozart;
+    public AudioClip mozart2;
+    public AudioClip classica1;
+    public AudioClip demo;
+    private List<int> lista_notas = new List<int>();
+    public string filePath;
+
+
 
     private void Awake()
     {
@@ -46,6 +58,37 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        argument = PlayerPrefs.GetString("Music");
+        Debug.Log(argument);
+        
+        if (argument == "mozart")
+        {
+            audioSource.clip = mozart;
+            filePath = "Assets/Notas/mozart.txt";
+        }
+        else if (argument == "mozart2")
+        {
+            audioSource.clip = mozart2;
+            filePath = "Assets/Notas/mozart2.txt";
+        }
+        else if (argument == "classica1")
+        {
+            audioSource.clip = classica1;
+            filePath = "Assets/Notas/classica1.txt";
+        }
+        else
+        {
+            audioSource.clip = demo;
+            filePath = "Assets/Notas/classica1.txt";
+        }
+
+        ReadTextFile();
+        Debug.Log(lista_notas.Count);
+        speed = int.Parse(PlayerPrefs.GetString("Speed"));
+        Time.timeScale = Time.timeScale*speed;
+        // string speed_nova = (speed+1).ToString();
+        // PlayerPrefs.SetString("Speed",speed_nova);
+
         SetDataForNoteGeneration();
         SpawnNotes();
     }
@@ -121,7 +164,7 @@ public class GameController : MonoBehaviour
         }
         for (int i = 0; i < notesToSpawn; i++)
         {
-            var randomIndex = GetRandomIndex();
+            var randomIndex = lista_notas[i]-1;
             for (int j = 0; j < 4; j++)
             {
                 note = Instantiate(notePrefab, noteContainer.transform);
@@ -183,4 +226,32 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(1);
         ShowGameOverScreen.Value = true;
     }
+
+
+    private void ReadTextFile()
+    {
+        if (File.Exists(filePath))
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines)
+            {
+                if (int.TryParse(line, out int nota))
+                {
+                    lista_notas.Add(nota);
+                }
+                else
+                {
+                    Debug.LogError("Invalid integer value in the text file: " + line);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Text file not found at path: " + filePath);
+        }
+    }
+
+
+
+
 }
