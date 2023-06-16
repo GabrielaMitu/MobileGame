@@ -3590,6 +3590,13 @@ MonoBehaviour:
   noteContainer: {fileID: 473242142}
   audioSource: {fileID: 1956723004}
   startButtonPressed: 0
+  argument: 
+  speed: 0
+  mozart: {fileID: 8300000, guid: ea903009e45f4f880a167b41d36ecd87, type: 3}
+  mozart2: {fileID: 8300000, guid: 6481247038ee931328ffcaa89ff5dbfe, type: 3}
+  classica1: {fileID: 8300000, guid: b8da2c4e322dd4a79aaca529cc848262, type: 3}
+  demo: {fileID: 8300000, guid: 2e627355d5c1cfd4fb07a494cf97deeb, type: 3}
+  filePath:
   shield: {fileID: 871102737}
   freeze: {fileID: 408543448}
   usingFreeze: 0
