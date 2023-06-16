@@ -30,6 +30,10 @@ public class GameController : MonoBehaviour
     private bool lastSpawn = false;
     public ReactiveProperty<bool> ShowGameOverScreen { get; set; }
     public bool PlayerWon { get; set; } = false;
+    
+    // detect when pressed start
+    public bool startButtonPressed  = false;
+
 
     private void Awake()
     {
@@ -52,9 +56,14 @@ public class GameController : MonoBehaviour
         DetectStart();
     }
 
+    public void OnStartButtonClick()
+    {
+        startButtonPressed = true;
+    }
+
     private void DetectStart()
     {
-        if (!GameController.Instance.GameStarted.Value && Input.GetMouseButtonDown(0))
+        if (!GameController.Instance.GameStarted.Value && startButtonPressed)
         {
             GameController.Instance.GameStarted.Value = true;
         }
