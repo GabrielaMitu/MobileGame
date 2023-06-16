@@ -10,8 +10,8 @@ public class Note : MonoBehaviour
     public GameObject shield;
     public GameObject freeze;
 
-    public bool usingFreeze = false;
-    public bool usingShield = false;
+    bool usingFreeze = false;
+    bool usingShield = false;
 
     private bool visible;
     public bool Visible
@@ -30,6 +30,14 @@ public class Note : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        shield = GameObject.FindGameObjectWithTag("ImageShield");
+        freeze = GameObject.FindGameObjectWithTag("ImageFreeze");
+    }
+
+    private void Start()
+    {
+        shield.SetActive(false);
+        freeze.SetActive(false);
     }
 
     private void Update()
@@ -57,13 +65,20 @@ public class Note : MonoBehaviour
             }
             else
             {
-                if(usingFreeze){
+                Debug.Log("\nDDDDDDDDDDDDDDDDDD");
+                Debug.Log("Using Freeze: " + usingFreeze);
+                if(freeze.activeSelf){
+                    Debug.Log("\nBBBBBBBBBBBBBBBBBBBBB");
                     Debug.Log("Using Freeze");
                     usingFreeze = false;
                     freeze.SetActive(false);
 
                     // slow down the note speed for 5 seconds
-                    GameController.Instance.noteSpeed = 1f;
+                    GameController.Instance.noteSpeed /= 2f;
+                    Played = true;
+                    GameController.Instance.LastPlayedNoteId = Id;
+                    GameController.Instance.Score.Value++;
+                    GameController.Instance.PlaySomeOfSong();
                     animator.Play("Played");
                 }
                 else{
@@ -79,13 +94,20 @@ public class Note : MonoBehaviour
     {
         if (Visible && !Played)
         {
-            if(usingFreeze){
+            // get the value of usingFreeze
+            Debug.Log("\naaaaaaaaaaaaaaaaa");
+            if(freeze.activeSelf){
                 Debug.Log("Using Freeze");
                 usingFreeze = false;
                 freeze.SetActive(false);
 
                 // slow down the note speed for 5 seconds
-                GameController.Instance.noteSpeed = 1f;
+                GameController.Instance.noteSpeed /= 2f;
+                Played = true;
+                GameController.Instance.LastPlayedNoteId = Id;
+                GameController.Instance.Score.Value++;
+                GameController.Instance.PlaySomeOfSong();
+                animator.Play("Played");
             }
             else{
                 Debug.Log("Game Over");
@@ -106,6 +128,7 @@ public class Note : MonoBehaviour
         else{
             usingFreeze = true;
             freeze.SetActive(true);
+            Debug.Log(freeze.activeSelf);
         }
     }
 
