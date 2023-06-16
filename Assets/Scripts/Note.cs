@@ -95,6 +95,5 @@ public class Note : MonoBehaviour
             usingShield = true;
             shield.SetActive(true);
         }
-        usingShield = true;
     }
 }
