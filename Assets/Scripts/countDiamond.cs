@@ -26,6 +26,7 @@ public class countDiamond : MonoBehaviour
     public void GanharDiamante()
     {
         diamantes++;
+        Debug.Log("Diamantes: " + diamantes);
     }
 
     // Método para obter a contagem atual de diamantes
