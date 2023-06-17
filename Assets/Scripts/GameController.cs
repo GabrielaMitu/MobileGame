@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     private Vector3 noteLocalScale;
     private float noteSpawnStartPosX;
     public float noteSpeed = 5f;
-    public const int NotesToSpawn = 33;
+    public const int NotesToSpawn = 53;
     private int prevRandomIndex = -1;
     public static GameController Instance { get; private set; }
     public Transform noteContainer;
@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     public ReactiveProperty<int> Score { get; set; }
     private int lastNoteId = 1;
     public int LastPlayedNoteId { get; set; } = 0;
+    public int ErrorNoteId { get; set; } = 0;
     public AudioSource audioSource;
     private Coroutine playSongSegmentCoroutine;
     private float songSegmentLength = 0.8f;
@@ -304,9 +305,13 @@ public class GameController : MonoBehaviour
         // Loop through the tagged objects
         foreach (GameObject taggedObject in taggedObjects)
         {
-            if ((taggedObject.GetComponent<Note>().Visible) && (taggedObject.GetComponent<Note>().Id == (LastPlayedNoteId-1)))
+            if (taggedObject.GetComponent<Note>().Id == ErrorNoteId)
             {
-                taggedObject.GetComponent<Note>().Played = true;
+                // taggedObject.GetComponent<Note>().Played = true;
+                //destroy
+                Debug.Log("Destroy");
+                Debug.Log(ErrorNoteId);
+                Destroy(taggedObject);
             }
             i++;
         }
