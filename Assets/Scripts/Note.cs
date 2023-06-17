@@ -38,20 +38,6 @@ public class Note : MonoBehaviour
         freeze = GameObject.FindGameObjectWithTag("ImageFreeze").GetComponent<Image>();
     }
 
-    // private void Start()
-    // {
-        // if (shield!=null)
-        // {
-        //     shield.SetActive(false);
-        // }
-        // if (freeze!=null)
-        // {
-        //     freeze.SetActive(false);
-        // }
-        // shield.enabled = false;
-        // freeze.enabled = false;
-    // }
-
     private void Update()
     {
         isSlow = GameController.Instance.isSlow;

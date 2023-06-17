@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class countDiamond : MonoBehaviour
+public class CountDiamond : MonoBehaviour
 {
-    public static countDiamond instance; // Referência estática para o GameController
+    public static CountDiamond instance; // Referência estática para o GameController
 
     private int diamantes = 1; // Variável para contar os diamantes
 
@@ -23,9 +23,9 @@ public class countDiamond : MonoBehaviour
     }
 
     // Método para adicionar diamantes à contagem global
-    public void GanharDiamante()
+    public void GanharDiamante(int quantidade)
     {
-        diamantes++;
+        diamantes += quantidade;
         Debug.Log("Diamantes: " + diamantes);
     }
 

@@ -11,7 +11,7 @@ public class ShowDiamonds : MonoBehaviour
     private void Start()
     {
         // Obtém a contagem de diamantes do GameController
-        int contagemDiamantes = countDiamond.instance.ObterContagemDiamantes();
+        int contagemDiamantes = CountDiamond.instance.ObterContagemDiamantes();
 
         // Atualiza o texto para exibir a contagem de diamantes
         textoContagemDiamantes.text = ": " + contagemDiamantes.ToString();

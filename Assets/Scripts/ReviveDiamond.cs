@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ReviveDiamond : MonoBehaviour
 {
-    public countDiamond countDiamond;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +18,6 @@ public class ReviveDiamond : MonoBehaviour
 
     public void Revive()
     {
-        countDiamond.instance.GastarDiamante();
+        CountDiamond.instance.GastarDiamante();
     }
 }

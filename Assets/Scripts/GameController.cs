@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
     public ReactiveProperty<bool> ShowGameOverScreen { get; set; }
     public bool PlayerWon { get; set; } = false;
     public GameObject WinScreen;
+    public GameObject WinScreen2;
     public GameObject OverScreen;
     // shield
     public bool usingShield = false;
@@ -69,7 +70,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     public void ClickedNote()
     {
         if(isSlow)
@@ -85,7 +85,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {
         Instance = this;
@@ -98,6 +97,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         WinScreen.SetActive(false);
+        WinScreen2.SetActive(false);
         OverScreen.SetActive(false);
         argument = PlayerPrefs.GetString("Music");
         Debug.Log(argument);
@@ -171,7 +171,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     private void SetDataForNoteGeneration()
     {
         var topRight = new Vector3(Screen.width, Screen.height, 0);
@@ -225,7 +224,6 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("!!!!!!!!!!!!!!!!!");
             Invoke("Ganhou", 1.5f);
-
         }
     }
 
@@ -265,7 +263,15 @@ public class GameController : MonoBehaviour
     public void Ganhou()
     {
         Time.timeScale = 0;
-        WinScreen.SetActive(true);
+        
+        if (speed == 1 || speed ==1.5){
+            WinScreen.SetActive(true);
+        }
+        if (speed == 2){
+            WinScreen2.SetActive(true);
+            // win diamond
+            CountDiamond.instance.GanharDiamante(3);
+        }
     }
     public void PlayAgain()
     {
