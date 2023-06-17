@@ -6,8 +6,7 @@ public class Note : MonoBehaviour
 {
     Animator animator;
 
-    // Count the number of notes
-    public int count = 0;
+    bool isSlow = false;
 
     // Items to be used
     public GameObject shield;
@@ -39,21 +38,22 @@ public class Note : MonoBehaviour
 
     private void Start()
     {
-        shield.SetActive(false);
-        freeze.SetActive(false);
+        if (shield!=null)
+        {
+            shield.SetActive(false);
+        }
+        if (freeze!=null)
+        {
+            freeze.SetActive(false);
+        }
     }
 
     private void Update()
     {
-
+        isSlow = GameController.Instance.isSlow;
         if (GameController.Instance.GameStarted.Value && !GameController.Instance.GameOver.Value)
         {
             transform.Translate(Vector2.down * GameController.Instance.noteSpeed * Time.deltaTime);
-        }
-
-        if (count == 7){
-            GameController.Instance.noteSpeed *= 2f;
-            count = 0;
         }
     }
 
@@ -65,6 +65,11 @@ public class Note : MonoBehaviour
             {
                 if (!Played && GameController.Instance.LastPlayedNoteId == Id - 1)
                 {
+
+                    if(isSlow){
+                        GameController.Instance.ClickedNote();
+                    }
+
                     Played = true;
                     GameController.Instance.LastPlayedNoteId = Id;
                     GameController.Instance.Score.Value++;
@@ -74,24 +79,26 @@ public class Note : MonoBehaviour
             }
             else
             {
-                if(freeze.activeSelf){
-                    usingFreeze = false;
+                if(!freeze.activeSelf || freeze == null){
+                    Debug.Log("Game Over");
+                    StartCoroutine(GameController.Instance.EndGame());
+                    animator.Play("Missed");
+                }
+
+                else{
+                    GameController.Instance.MissedNote();
+
+                    // usingFreeze = false;
                     freeze.SetActive(false);
+                    // Debug.Log(this.isSlow);
 
                     // slow down the note speed for 7 notes
-                    count++;
-
-                    GameController.Instance.noteSpeed /= 2f;
+                    // GameController.Instance.noteSpeed /= 2f;
                     Played = true;
                     GameController.Instance.LastPlayedNoteId = Id;
                     GameController.Instance.Score.Value++;
                     GameController.Instance.PlaySomeOfSong();
                     animator.Play("Played");
-                }
-                else{
-                    Debug.Log("Game Over");
-                    StartCoroutine(GameController.Instance.EndGame());
-                    animator.Play("Missed");
                 }
             }
         }
@@ -102,13 +109,18 @@ public class Note : MonoBehaviour
         if (Visible && !Played)
         {
             // get the value of usingFreeze
-            if(freeze.activeSelf){
-                usingFreeze = false;
+            if(!freeze.activeSelf || freeze == null){
+                Debug.Log("Game Over");
+                StartCoroutine(GameController.Instance.EndGame());
+                animator.Play("Missed");
+            }
+            else{
+                GameController.Instance.MissedNote();
+
+                // usingFreeze = false;
                 freeze.SetActive(false);
 
                 // slow down the note speed for 5 seconds
-                count++;
-
                 GameController.Instance.noteSpeed /= 2f;
                 Played = true;
                 GameController.Instance.LastPlayedNoteId = Id;
@@ -116,15 +128,9 @@ public class Note : MonoBehaviour
                 GameController.Instance.PlaySomeOfSong();
                 animator.Play("Played");
             }
-            else{
-                Debug.Log("Game Over");
-                StartCoroutine(GameController.Instance.EndGame());
-                animator.Play("Missed");
-            }
 
         }
     }
-
 
     public void OnFreezeButtonClick()
     {
@@ -137,6 +143,7 @@ public class Note : MonoBehaviour
             freeze.SetActive(true);
             Debug.Log(freeze.activeSelf);
         }
+        GameController.Instance.usingFreeze = usingFreeze;
     }
 
     public void OnShieldButtonClick()
@@ -149,5 +156,6 @@ public class Note : MonoBehaviour
             usingShield = true;
             shield.SetActive(true);
         }
+        GameController.Instance.usingShield = usingShield;
     }
 }

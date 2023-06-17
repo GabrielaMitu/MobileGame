@@ -32,7 +32,17 @@ public class GameController : MonoBehaviour
     private bool lastSpawn = false;
     public ReactiveProperty<bool> ShowGameOverScreen { get; set; }
     public bool PlayerWon { get; set; } = false;
-    
+
+
+    // shield
+    public bool usingShield = false;
+
+    // freeze
+    public bool usingFreeze = false;
+    public bool isSlow = false;
+    public int maxNotesFreeze = 7;
+    public int currentNotesFreeze = 0;
+
     // detect when pressed start
     public bool startButtonPressed  = false;
 
@@ -45,6 +55,35 @@ public class GameController : MonoBehaviour
     private List<int> lista_notas = new List<int>();
     public string filePath;
 
+    public void MissedNote()
+    {
+        if(usingFreeze)
+        {
+            if(isSlow) {
+                noteSpeed /= 2;
+            }
+            isSlow = true;
+        } else if (usingShield)
+        {
+            usingShield = false;
+        }
+    }
+
+
+    public void ClickedNote()
+    {
+        if(isSlow)
+        {
+            currentNotesFreeze++;
+            if (currentNotesFreeze == maxNotesFreeze)
+            {
+                usingFreeze = false;
+                isSlow = false;
+                currentNotesFreeze = 0;
+                noteSpeed *= 2;
+            }
+        }
+    }
 
 
     private void Awake()
@@ -60,7 +99,7 @@ public class GameController : MonoBehaviour
     {
         argument = PlayerPrefs.GetString("Music");
         Debug.Log(argument);
-        
+
         if (argument == "mozart")
         {
             audioSource.clip = mozart;
