@@ -309,19 +309,16 @@ public class GameController : MonoBehaviour
 
     public void Voltar()
     {
+        Debug.Log("Voltar");
         GameOver.Value = false;
         // yield return new WaitForSeconds(1);
         // ShowGameOverScreen.Value = false;
+
         GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Note");
-        var i = 0;
         // Loop through the tagged objects
         foreach (GameObject taggedObject in taggedObjects)
         {
-            if ((taggedObject.GetComponent<Note>().Visible) && (taggedObject.GetComponent<Note>().Id == (LastPlayedNoteId-1)))
-            {
-                taggedObject.GetComponent<Note>().Played = true;
-            }
-            i++;
+            taggedObject.transform.position = new Vector3(taggedObject.transform.position.x, taggedObject.transform.position.y+5, taggedObject.transform.position.z);
         }
         OverScreen.SetActive(false);
         Time.timeScale = 1f*speed;
