@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
     public ReactiveProperty<bool> ShowGameOverScreen { get; set; }
     public bool PlayerWon { get; set; } = false;
     public GameObject WinScreen;
-
+    public GameObject OverScreen;
     // shield
     public bool usingShield = false;
 
@@ -98,6 +98,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         WinScreen.SetActive(false);
+        OverScreen.SetActive(false);
         argument = PlayerPrefs.GetString("Music");
         Debug.Log(argument);
 
@@ -279,13 +280,40 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+
     public IEnumerator EndGame()
     {
         GameOver.Value = true;
         yield return new WaitForSeconds(1);
-        ShowGameOverScreen.Value = true;
+        // ShowGameOverScreen.Value = true;
+        OverScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
+    public void Voltar()
+    {
+        GameOver.Value = false;
+        // yield return new WaitForSeconds(1);
+        // ShowGameOverScreen.Value = false;
+        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Note");
+        var i = 0;
+        // Loop through the tagged objects
+        foreach (GameObject taggedObject in taggedObjects)
+        {
+            if ((taggedObject.GetComponent<Note>().Visible) && (taggedObject.GetComponent<Note>().Id == (LastPlayedNoteId-1)))
+            {
+                taggedObject.GetComponent<Note>().Played = true;
+            }
+            i++;
+        }
+        OverScreen.SetActive(false);
+        Time.timeScale = 1f*speed;
+    }
+    
 
     private void ReadTextFile()
     {
