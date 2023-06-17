@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Note : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class Note : MonoBehaviour
     bool isSlow = false;
 
     // Items to be used
-    public GameObject shield;
-    public GameObject freeze;
+    Image shield;
+    Image freeze;
 
     bool usingFreeze = false;
     bool usingShield = false;
@@ -32,21 +33,24 @@ public class Note : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        shield = GameObject.FindGameObjectWithTag("ImageShield");
-        freeze = GameObject.FindGameObjectWithTag("ImageFreeze");
+
+        shield = GameObject.FindGameObjectWithTag("ImageShield").GetComponent<Image>();
+        freeze = GameObject.FindGameObjectWithTag("ImageFreeze").GetComponent<Image>();
     }
 
-    private void Start()
-    {
-        if (shield!=null)
-        {
-            shield.SetActive(false);
-        }
-        if (freeze!=null)
-        {
-            freeze.SetActive(false);
-        }
-    }
+    // private void Start()
+    // {
+        // if (shield!=null)
+        // {
+        //     shield.SetActive(false);
+        // }
+        // if (freeze!=null)
+        // {
+        //     freeze.SetActive(false);
+        // }
+        // shield.enabled = false;
+        // freeze.enabled = false;
+    // }
 
     private void Update()
     {
@@ -61,7 +65,7 @@ public class Note : MonoBehaviour
     {
         if (GameController.Instance.GameStarted.Value && !GameController.Instance.GameOver.Value)
         {
-            if (Visible)
+            if (Visible) // if note is visible on screen
             {
                 if (!Played && GameController.Instance.LastPlayedNoteId == Id - 1)
                 {
@@ -77,23 +81,35 @@ public class Note : MonoBehaviour
                     animator.Play("Played");
                 }
             }
-            else
+            else // if note is not visible on screen
             {
-                if(!freeze.activeSelf || freeze == null){
+                if((freeze.enabled == false && shield.enabled == false)){
                     Debug.Log("Game Over");
                     StartCoroutine(GameController.Instance.EndGame());
                     animator.Play("Missed");
                 }
 
-                else{
+                else if(freeze.enabled){
                     GameController.Instance.MissedNote();
 
-                    // usingFreeze = false;
-                    freeze.SetActive(false);
+                    usingFreeze = false;
+                    freeze.enabled = false;
                     // Debug.Log(this.isSlow);
 
                     // slow down the note speed for 7 notes
-                    // GameController.Instance.noteSpeed /= 2f;
+                    GameController.Instance.noteSpeed /= 2f;
+                    Played = true;
+                    GameController.Instance.LastPlayedNoteId = Id;
+                    GameController.Instance.Score.Value++;
+                    GameController.Instance.PlaySomeOfSong();
+                    animator.Play("Played");
+                }
+
+                else if(shield.enabled){
+                    GameController.Instance.MissedNote();
+
+                    usingShield = false;
+                    shield.enabled = false;
                     Played = true;
                     GameController.Instance.LastPlayedNoteId = Id;
                     GameController.Instance.Score.Value++;
@@ -108,19 +124,20 @@ public class Note : MonoBehaviour
     {
         if (Visible && !Played)
         {
-            // get the value of usingFreeze
-            if(!freeze.activeSelf || freeze == null){
+            if((freeze.enabled == false && shield.enabled == false)){
                 Debug.Log("Game Over");
                 StartCoroutine(GameController.Instance.EndGame());
                 animator.Play("Missed");
             }
-            else{
+
+            else if(freeze.enabled){
                 GameController.Instance.MissedNote();
 
-                // usingFreeze = false;
-                freeze.SetActive(false);
+                usingFreeze = false;
+                freeze.enabled = false;
+                // Debug.Log(this.isSlow);
 
-                // slow down the note speed for 5 seconds
+                // slow down the note speed for 7 notes
                 GameController.Instance.noteSpeed /= 2f;
                 Played = true;
                 GameController.Instance.LastPlayedNoteId = Id;
@@ -129,32 +146,43 @@ public class Note : MonoBehaviour
                 animator.Play("Played");
             }
 
+            else if(shield.enabled){
+                GameController.Instance.MissedNote();
+
+                usingShield = false;
+                shield.enabled = false;
+                Played = true;
+                GameController.Instance.LastPlayedNoteId = Id;
+                GameController.Instance.Score.Value++;
+                GameController.Instance.PlaySomeOfSong();
+                animator.Play("Played");
+            }
         }
     }
 
     public void OnFreezeButtonClick()
     {
-        if (usingFreeze){
+        if (freeze.enabled){
             usingFreeze = false;
-            freeze.SetActive(false);
+            freeze.enabled = false;
         }
         else{
             usingFreeze = true;
-            freeze.SetActive(true);
-            Debug.Log(freeze.activeSelf);
+            freeze.enabled = true;
+            Debug.Log(freeze.enabled);
         }
         GameController.Instance.usingFreeze = usingFreeze;
     }
 
     public void OnShieldButtonClick()
     {
-        if (usingShield){
+        if (shield.enabled){
             usingShield = false;
-            shield.SetActive(false);
+            shield.enabled = false;
         }
         else{
             usingShield = true;
-            shield.SetActive(true);
+            shield.enabled = true;
         }
         GameController.Instance.usingShield = usingShield;
     }
