@@ -3,18 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 // Load scene on click
 
 public class ModalWindow : MonoBehaviour
 {
+    private int diamantes;
+    public TextMeshProUGUI diamantesText;
+
     public string gameScene; // Nome da cena que você deseja carregar
     // public GameObject MenuSpeed;
 
     // imprimir o nome da cena no console
     private void Start()
     {
+        // diamantes = 1; // Set your desired starting value here
+        // PlayerPrefs.SetInt("diamantes", diamantes);
         Debug.Log(gameScene);
+        if (PlayerPrefs.HasKey("diamantes"))
+        {
+            diamantes = PlayerPrefs.GetInt("diamantes");
+        }
+        else
+        {
+            Debug.Log("No diamantes key");
+            diamantes = 1; // Set your desired starting value here
+            PlayerPrefs.SetInt("diamantes", diamantes);
+        }
+        diamantesText.text = diamantes.ToString();
     }
 
     public void OnButtonClick0()

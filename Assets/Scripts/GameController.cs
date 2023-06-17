@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 using System.Collections.Generic;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class GameController : MonoBehaviour
     public GameObject WinScreen;
     public GameObject WinScreen2;
     public GameObject OverScreen;
+    public TextMeshProUGUI diamantesSobrando;
+    public Button button_voltar;
     // shield
     public bool usingShield = false;
 
@@ -270,17 +273,23 @@ public class GameController : MonoBehaviour
         if (speed == 2){
             WinScreen2.SetActive(true);
             // win diamond
+            var diamantes = PlayerPrefs.GetInt("diamantes");
+            PlayerPrefs.SetInt("diamantes", diamantes+3);
             CountDiamond.instance.GanharDiamante(3);
         }
     }
     public void PlayAgain()
     {
+        var diamantes = PlayerPrefs.GetInt("diamantes");
+        PlayerPrefs.SetInt("diamantes", diamantes);
         PlayerPrefs.SetString("Speed",speed.ToString());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void PlayAgainFaster()
     {
+        var diamantes = PlayerPrefs.GetInt("diamantes");
+        PlayerPrefs.SetInt("diamantes", diamantes+1);
         string speed_nova = (speed+0.5).ToString();
         PlayerPrefs.SetString("Speed",speed_nova);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -303,7 +312,16 @@ public class GameController : MonoBehaviour
         GameOver.Value = true;
         yield return new WaitForSeconds(1);
         // ShowGameOverScreen.Value = true;
+        var diamantes = PlayerPrefs.GetInt("diamantes");
+        
+        if (diamantes<=0){
+            button_voltar.interactable = false;
+        }else {
+            button_voltar.interactable = true;
+        }
         OverScreen.SetActive(true);
+        diamantesSobrando.text = diamantes.ToString();
+
         Time.timeScale = 0;
     }
 
@@ -313,7 +331,8 @@ public class GameController : MonoBehaviour
         GameOver.Value = false;
         // yield return new WaitForSeconds(1);
         // ShowGameOverScreen.Value = false;
-
+        var diamantes = PlayerPrefs.GetInt("diamantes");
+        PlayerPrefs.SetInt("diamantes", diamantes-1);
         GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Note");
         // Loop through the tagged objects
         foreach (GameObject taggedObject in taggedObjects)
