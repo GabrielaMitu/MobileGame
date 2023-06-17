@@ -6,7 +6,7 @@ public class countDiamond : MonoBehaviour
 {
     public static countDiamond instance; // Referência estática para o GameController
 
-    private int diamantes = 0; // Variável para contar os diamantes
+    private int diamantes = 1; // Variável para contar os diamantes
 
     private void Awake()
     {
@@ -26,6 +26,12 @@ public class countDiamond : MonoBehaviour
     public void GanharDiamante()
     {
         diamantes++;
+        Debug.Log("Diamantes: " + diamantes);
+    }
+
+    public void GastarDiamante()
+    {
+        diamantes--;
         Debug.Log("Diamantes: " + diamantes);
     }
 
