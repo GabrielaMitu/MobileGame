@@ -31,8 +31,10 @@ public class countDiamond : MonoBehaviour
 
     public void GastarDiamante()
     {
-        diamantes--;
-        Debug.Log("Diamantes: " + diamantes);
+        if (diamantes > 0) {
+            diamantes--;
+            Debug.Log("Diamantes: " + diamantes);
+        }
     }
 
     // Método para obter a contagem atual de diamantes

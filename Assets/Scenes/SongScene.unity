@@ -2987,6 +2987,8 @@ GameObject:
   - component: {fileID: 878146399}
   - component: {fileID: 878146401}
   - component: {fileID: 878146400}
+  - component: {fileID: 878146403}
+  - component: {fileID: 878146402}
   m_Layer: 5
   m_Name: WinPanelBack
   m_TagString: Untagged
@@ -3053,6 +3055,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878146398}
   m_CullTransparentMesh: 1
+--- !u!225 &878146402
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878146398}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &878146403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878146398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727075b6a89ee3644ac106377be24058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visible: 0
 --- !u!1 &935288449
 GameObject:
   m_ObjectHideFlags: 0
