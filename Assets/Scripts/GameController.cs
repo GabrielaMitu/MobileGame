@@ -286,6 +286,13 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void PlayAgainSlower()
+    {
+        string speed_nova = (1).ToString();
+        PlayerPrefs.SetString("Speed",speed_nova);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void MainMenu()
     {
         SceneManager.LoadScene("MenuScene");
