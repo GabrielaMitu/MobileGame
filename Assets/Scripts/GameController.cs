@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     private Vector3 noteLocalScale;
     private float noteSpawnStartPosX;
     public float noteSpeed = 5f;
-    public const int NotesToSpawn = 20;
+    public const int NotesToSpawn = 33;
     private int prevRandomIndex = -1;
     public static GameController Instance { get; private set; }
     public Transform noteContainer;
@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
     private bool lastSpawn = false;
     public ReactiveProperty<bool> ShowGameOverScreen { get; set; }
     public bool PlayerWon { get; set; } = false;
-
+    public GameObject WinScreen;
 
     // shield
     public bool usingShield = false;
@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
     public bool startButtonPressed  = false;
 
     public string argument;
-    public int speed;
+    public float speed;
     public AudioClip mozart;
     public AudioClip mozart2;
     public AudioClip classica1;
@@ -97,6 +97,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        WinScreen.SetActive(false);
         argument = PlayerPrefs.GetString("Music");
         Debug.Log(argument);
 
@@ -123,8 +124,8 @@ public class GameController : MonoBehaviour
 
         ReadTextFile();
         Debug.Log(lista_notas.Count);
-        speed = int.Parse(PlayerPrefs.GetString("Speed"));
-        Time.timeScale = Time.timeScale*speed;
+        speed = float.Parse(PlayerPrefs.GetString("Speed"));
+        Time.timeScale = 1f*speed;
         // string speed_nova = (speed+1).ToString();
         // PlayerPrefs.SetString("Speed",speed_nova);
 
@@ -219,6 +220,12 @@ public class GameController : MonoBehaviour
             noteSpawnStartPosY += noteHeight;
             if (i == NotesToSpawn - 1) lastSpawnedNote = note.transform;
         }
+        if (lastNoteId >= (NotesToSpawn)) 
+        {
+            Debug.Log("!!!!!!!!!!!!!!!!!");
+            Invoke("Ganhou", 1.5f);
+
+        }
     }
 
     private int GetRandomIndex()
@@ -254,8 +261,21 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void Ganhou()
+    {
+        Time.timeScale = 0;
+        WinScreen.SetActive(true);
+    }
     public void PlayAgain()
     {
+        PlayerPrefs.SetString("Speed",speed.ToString());
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PlayAgainFaster()
+    {
+        string speed_nova = (speed+0.5).ToString();
+        PlayerPrefs.SetString("Speed",speed_nova);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
