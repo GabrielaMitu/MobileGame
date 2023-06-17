@@ -127,6 +127,7 @@ public class Note : MonoBehaviour
         {
             if((freeze.enabled == false && shield.enabled == false)){
                 Debug.Log("Game Over");
+                GameController.Instance.ErrorNoteId = Id;
                 StartCoroutine(GameController.Instance.EndGame());
                 animator.Play("Missed");
             }

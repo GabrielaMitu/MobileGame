@@ -56,6 +56,7 @@ public class GameController : MonoBehaviour
     private List<int> lista_notas = new List<int>();
     public string filePath;
 
+
     public void MissedNote()
     {
         if(usingFreeze)
@@ -297,28 +298,21 @@ public class GameController : MonoBehaviour
 
     public void Voltar()
     {
+        Debug.Log("Voltar");
         GameOver.Value = false;
         // yield return new WaitForSeconds(1);
         // ShowGameOverScreen.Value = false;
+
         GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Note");
-        var i = 0;
         // Loop through the tagged objects
         foreach (GameObject taggedObject in taggedObjects)
         {
-            if (taggedObject.GetComponent<Note>().Id == ErrorNoteId)
-            {
-                // taggedObject.GetComponent<Note>().Played = true;
-                //destroy
-                Debug.Log("Destroy");
-                Debug.Log(ErrorNoteId);
-                Destroy(taggedObject);
-            }
-            i++;
+            taggedObject.transform.position = new Vector3(taggedObject.transform.position.x, taggedObject.transform.position.y+5, taggedObject.transform.position.z);
         }
         OverScreen.SetActive(false);
         Time.timeScale = 1f*speed;
     }
-    
+
 
     private void ReadTextFile()
     {
